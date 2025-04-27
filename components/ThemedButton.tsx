@@ -7,7 +7,7 @@ interface Props extends PressableProps{
     lightColor?: string;
     darkColor?: string;
     className?: string,
-    onPress?: ()=>void,
+    onPress?: () => void,
     children?: React.ReactNode
 
 }
@@ -20,11 +20,12 @@ const ThemedButton = ({
     children,
     ...rest
 }: Props)  => {
-    const color = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+    const color = useThemeColor({ light: lightColor, dark: darkColor }, 'buttonBackground');
   return (
     <Pressable
     {...rest}
     className={className}
+    onPress={onPress}
     style={{backgroundColor: color}}
     >
         {children}

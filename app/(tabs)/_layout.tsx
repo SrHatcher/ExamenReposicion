@@ -45,7 +45,7 @@ const _layout = () => {
           title: "Historial",
           tabBarIcon: ({color}) => <History size={24} color={color}/>
         }}
-      />
+      /> 
     </Tabs>
   )
 }

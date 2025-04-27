@@ -14,6 +14,7 @@ const RootLayout = () => {
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme: DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)"  options={{headerShown: false}}/>
+          <Stack.Screen name="details/index"  options={{headerShown: false}}/>
         </Stack>
       </ThemeProvider>
       <StatusBar style='auto' />
