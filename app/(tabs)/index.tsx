@@ -1,75 +1,102 @@
-import { Image, StyleSheet, Platform, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native'
+import React from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/ThemedView'
+import ThemedButton from '@/components/ThemedButton'
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+const calculadora = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-      <Text className='bg-slate-50'>HOla ERRRICCCCK</Text>
-    </ParallaxScrollView>
-  );
+    <SafeAreaView>
+        <View className='mx-6' >
+            {/* Header con linea divisora y boton de calcular y texto de advertencia */}
+            <ThemedText className='text-[32px] mb-3'>Calculadora RPN</ThemedText>
+            <ThemedView className='h-1 w-full mb-6'></ThemedView>
+            <View className='flex flex-row items-center'>
+                <ThemedButton className='w-[140px] h-[56px] flex items-center justify-center rounded-xl'>
+                    <ThemedText className='text-[24px] text-center' lightColor='#ECEDEE'>Calcular</ThemedText>
+                </ThemedButton>
+                <View className='flex-1 ml-2'>
+                  <ThemedText className='text-[14px]  text-center' >Faltan operadores lógicos o numeros para resolver este problema</ThemedText>
+                </View>
+            </View>
+
+            {/* Espacio para mostrar la operacion y los numeros/operadores */}
+            <View>
+              <View> 
+                <ThemedText className='text-right text-[28px] mt-4'>3 4 + 5 2 -</ThemedText>
+                <ThemedText className='text-right text-[36px] mt-4'>*</ThemedText>
+              </View>
+            </View>
+            <ThemedView className='h-1 w-full mb-3'></ThemedView>
+
+            {/* Espacio para los botones */}
+            <View className='mt-6'>
+              {/* primera fila: /, 7, 8, 9 */}
+            <View className='flex flex-row justify-between'>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>/</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>7</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>8</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>9</ThemedText>
+              </ThemedButton>
+            </View>
+            {/* Segunda fila: *, 4, 5, 6 */}
+            <View className='flex flex-row justify-between mt-5'>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>*</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>4</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>5</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>6</ThemedText>
+              </ThemedButton>
+            </View>
+            {/* Tercera fila: -, 3, 2, 1 */}
+            <View className='flex flex-row justify-between mt-5'>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>-</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>3</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>2</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>1</ThemedText>
+              </ThemedButton>
+            </View>
+            {/* cuarta fila: +, caret, 0, enter */}
+            <View className='flex flex-row justify-between mt-5'>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>+</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>^</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[32px]'>0</ThemedText>
+              </ThemedButton>
+              <ThemedButton className='w-[72px] h-[72px] flex items-center justify-center rounded-xl'>
+                <ThemedText lightColor='#ECEDEE' className='text-[20px]'>Enter</ThemedText>
+              </ThemedButton>
+            </View>
+            </View>
+
+        </View>
+    </SafeAreaView>
+  )
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default calculadora
