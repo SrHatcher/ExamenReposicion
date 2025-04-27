@@ -3,7 +3,6 @@ import { Calculator, History, ListCollapse } from 'lucide-react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
 import { Colors } from '@/constants/Colors'
-import { HapticTab } from '@/components/HapticTab'
 
 const _layout = () => {
   const colorScheme = useColorScheme()
