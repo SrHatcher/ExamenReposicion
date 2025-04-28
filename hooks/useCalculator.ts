@@ -12,14 +12,29 @@ const useCalculator = () => {
 
             switch (prevValue) {
                 case "+":
+                    if (number === ".") {
+                        return (`0${number}`)
+                    }
                     return number.toString();
                 case "-":
+                    if (number === ".") {
+                        return (`0${number}`)
+                    }
                     return number.toString();
                 case "*":
+                    if (number === ".") {
+                        return (`0${number}`)
+                    }
                     return number.toString();
                 case "/":
+                    if (number === ".") {
+                        return (`0${number}`)
+                    }
                     return number.toString();
                 case "^":
+                    if (number === ".") {
+                        return (`0${number}`)
+                    }
                     return number.toString();
             }
 
@@ -37,6 +52,14 @@ const useCalculator = () => {
 
             if (prevValue[0] === "0" && !prevValue.includes(".")) {
                 return number.toString()
+            }
+
+            if (prevValue && number === ".") {
+                return (`${prevValue}${number}`)
+            }
+
+            if (number === ".") {
+                return (`0${number}`)
             }
 
             return (`${prevValue}${number}`)
