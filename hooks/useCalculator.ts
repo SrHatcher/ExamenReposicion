@@ -1,3 +1,4 @@
+import { useSQLiteContext } from "expo-sqlite";
 import { useState } from "react"
 
 const useCalculator = () => {
@@ -5,6 +6,17 @@ const useCalculator = () => {
     const [operation, setOperation] = useState<(number | string)[]>([])
     const [resultToShow, setResultToShow] = useState<(number | string)[]>()
     const [error, setError] = useState("")
+
+    const database = useSQLiteContext();
+
+    const handleSave = async (operation: string, result: string, date: string) => {
+        try {
+            await database.runAsync("INSERT INTO operations (operation, result, date) VALUES (?, ?, ?);", [operation, result, date])
+        } catch (error) {
+            console.error("ocurrio un error al intentar guardar", error)
+        }
+    }
+
 
     const setOperationValue = (number: number | string) => {
 
@@ -73,11 +85,20 @@ const useCalculator = () => {
         setError("")
     }
 
-    const calculateOperation = () => {
+    const calculateOperation = async () => {
         const realValues = operation.filter(item => item !== " ") as string[]
         const operadores = ["/", "*", "+", "-", "^"];
         let operadorEncontrado = true;
         console.log("Valores reales del array", realValues)
+
+        const numeros = realValues.filter(item => !isNaN(Number(item)));
+        const operadoresEncontrados = realValues.some(item => operadores.includes(item));
+
+        if (numeros.length >= 2 && !operadoresEncontrados) {
+            setError("Debe ingresar un operador para realizar el cálculo.");
+            setResultToShow(operation);
+            return;
+        }
 
         while (operadorEncontrado) {
             operadorEncontrado = false
@@ -136,9 +157,19 @@ const useCalculator = () => {
             }
         }
 
-        //TODO: Sen caso de que todo salga bien aqui deberiamos de traer la logica para guardar la operacion en SQLite
-        setResultToShow(realValues) //Este es resultado que vamos a tener que guardar en el SQLite
-        //el array que mostrará la operacion completa será el de operation, ese tambien habra que guardarlo en sqlite
+        console.log("resultado de la operacion:", realValues)
+
+        //obtencion y parseo de datos para guardarlos en SQLite
+        const now = new Date().toISOString();
+        const operationString = operation.join('')
+        const resultString = (realValues[0])
+
+        setResultToShow(realValues) //Este es resultado que vamos a tener que guardar en el SQLite y es el que se mostrará en la pantalla de la calculadora
+
+        //Guardado en SQLite
+        //console.log("inició el proceso de guardado")
+        await handleSave(operationString, resultString, now)
+        //console.log("terminó el proceso de guardado")
     }
 
     const enterValue = () => {
